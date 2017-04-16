@@ -10,3 +10,6 @@ default: serve
 serve:
 	@echo "${BLUE}Starting local webserver at http://localhost:${PORT}/${NOCOLOR}."
 	python3 -m http.server ${PORT}
+
+prettify:
+	prettier --single-quote --trailing-comma es5 --write src/index.js
