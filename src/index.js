@@ -19,44 +19,44 @@ document.body.appendChild(staticRenderer.domElement);
 /********************************************
  * Camera set up
  ********************************************/
-var camera = new THREE.PerspectiveCamera(
+var sceneCamera = new THREE.PerspectiveCamera(
   50,
   window.innerWidth / (window.innerHeight / 2),
   0.1,
   1000
 );
-camera.position.set(-70, 40, 30);
-camera.up = new THREE.Vector3(0, 1, 0);
-camera.lookAt(new THREE.Vector3(0, 0, 200));
-controls = new THREE.OrbitControls(camera, mainRenderer.domElement);
+sceneCamera.position.set(-70, 40, 30);
+sceneCamera.up = new THREE.Vector3(0, 1, 0);
+sceneCamera.lookAt(new THREE.Vector3(0, 0, 200));
+controls = new THREE.OrbitControls(sceneCamera, mainRenderer.domElement);
 
 // Camera for static rendering
-var r_camera = new THREE.PerspectiveCamera(
+var renderingCamera = new THREE.PerspectiveCamera(
   60,
   window.innerWidth / (window.innerHeight / 2),
   0.1,
   1000
 );
-r_camera.position.set(0, 1, -1);
-r_camera.up = new THREE.Vector3(0, 1, 0);
+renderingCamera.position.set(0, 1, -1);
+renderingCamera.up = new THREE.Vector3(0, 1, 0);
 
-r_camera.lookAt(new THREE.Vector3(0, 1, 1));
+renderingCamera.lookAt(new THREE.Vector3(0, 1, 1));
 
 /********************************************
  * Camera controls
  ********************************************/
-var camcont = new function() {
+var controls = new function() {
   this.fov = 75;
 }();
 
 var gui = new dat.GUI();
-gui.add(camcont, 'fov', 5, 200);
+gui.add(controls, 'fov', 5, 200);
 
 function setFov(fov) {
-  camcont.fov = fov;
+  controls.fov = fov;
   gui.__controllers[0].updateDisplay();
-  r_camera.fov = fov;
-  r_camera.updateProjectionMatrix();
+  renderingCamera.fov = fov;
+  renderingCamera.updateProjectionMatrix();
 }
 
 
@@ -66,9 +66,9 @@ function setFov(fov) {
 // Box that represents scene camera
 var boxgeom = new THREE.BoxGeometry(1, 1, 1);
 var material = new THREE.MeshPhongMaterial({ color: 0xff0000 });
-var fakeCamera = new THREE.Mesh(boxgeom, material);
-scene.add(fakeCamera);
-fakeCamera.position.set(0, 1, -1);
+var box = new THREE.Mesh(boxgeom, material);
+scene.add(box);
+box.position.set(0, 1, -1);
 
 // Grass
 var planeW = 200;
@@ -177,13 +177,13 @@ scene.add(cylinderCone3);
 var render = function() {
   requestAnimationFrame(render, { antialias: true });
 
-  fakeCamera.rotation.x += 0.1;
-  fakeCamera.rotation.y += 0.1;
+  box.rotation.x += 0.1;
+  box.rotation.y += 0.1;
 
-  setFov(camcont.fov);
+  setFov(controls.fov);
 
-  mainRenderer.render(scene, camera);
-  staticRenderer.render(scene, r_camera);
+  mainRenderer.render(scene, sceneCamera);
+  staticRenderer.render(scene, renderingCamera);
 };
 
 render();
