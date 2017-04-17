@@ -12,8 +12,16 @@ serve:
 	yarn start
 
 build:
-	@echo "${BLUE}Building page, results in dist/${NOCOLOR}."
+	@echo "${BLUE}Building page, results in index.html ${NOCOLOR}."
 	yarn build
 
 prettify:
 	prettier --single-quote --trailing-comma es5 --write src/index.js
+
+deploy: build
+	"${BLUE}Pushing page to github...${NOCOLOR}."
+	git pull origin master
+	git add index.html index_bundle.js
+	git commit -m 'Deploy'
+	git push origin master
+	"${BLUE}Done! Results at samlau.me/camera-interact${NOCOLOR}."
