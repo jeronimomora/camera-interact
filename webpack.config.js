@@ -20,6 +20,8 @@ module.exports = {
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
     ],
   },
-  plugins: [HtmlWebpackPluginConfig, new DashboardPlugin()],
+  plugins: process.env.NODE_ENV === 'production'
+    ? [HtmlWebpackPluginConfig]
+    : [HtmlWebpackPluginConfig, DashboardPlugin()],
   devtool: 'inline-source-map',
 };

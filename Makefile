@@ -16,7 +16,7 @@ build:
 	yarn build
 
 prettify:
-	prettier --single-quote --trailing-comma all --print-width 79 --write src/index.js
+	prettier --single-quote --trailing-comma all --print-width 79 --write src/index.js webpack.config.js
 
 deploy: build
 	@echo "${BLUE}Pushing page to github...${NOCOLOR}."
