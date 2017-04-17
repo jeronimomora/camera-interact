@@ -6,7 +6,7 @@
   "author": "Sam Lau <samlau95@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --open",
     "build": "webpack"
   },
   "devDependencies": {
@@ -16,6 +16,8 @@
     "html-webpack-plugin": "^2.28.0",
     "path": "^0.12.7",
     "prettier": "^1.1.0",
+    "three": "^0.84.0",
+    "three-orbit-controls": "^82.1.0",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2"
   }
