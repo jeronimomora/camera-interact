@@ -1,11 +1,12 @@
 const path = require('path');
-
+const DashboardPlugin = require('webpack-dashboard/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
   filename: 'index.html',
   inject: 'body',
-})
+});
 
 module.exports = {
   entry: './src/index.js',
@@ -19,6 +20,6 @@ module.exports = {
       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
     ],
   },
-  plugins: [HtmlWebpackPluginConfig],
-  devtool: "inline-source-map",
-}
+  plugins: [HtmlWebpackPluginConfig, new DashboardPlugin()],
+  devtool: 'inline-source-map',
+};
