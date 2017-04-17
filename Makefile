@@ -16,12 +16,12 @@ build:
 	yarn build
 
 prettify:
-	prettier --single-quote --trailing-comma es5 --write src/index.js
+	prettier --single-quote --trailing-comma all --print-width 79 --write src/index.js
 
 deploy: build
-	"${BLUE}Pushing page to github...${NOCOLOR}."
+	@echo "${BLUE}Pushing page to github...${NOCOLOR}."
 	git pull origin master
 	git add index.html index_bundle.js
 	git commit -m 'Deploy'
 	git push origin master
-	"${BLUE}Done! Results at samlau.me/camera-interact${NOCOLOR}."
+	@echo "${BLUE}Done! Results at samlau.me/camera-interact${NOCOLOR}."
