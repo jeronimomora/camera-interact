@@ -3,13 +3,17 @@
 BLUE=\033[0;34m
 NOCOLOR=\033[0m
 
-PORT?=8000
+PORT?=8080
 
 default: serve
 
 serve:
 	@echo "${BLUE}Starting local webserver at http://localhost:${PORT}/${NOCOLOR}."
-	python3 -m http.server ${PORT}
+	yarn start
+
+build:
+	@echo "${BLUE}Building page, results in dist/${NOCOLOR}."
+	yarn build
 
 prettify:
 	prettier --single-quote --trailing-comma es5 --write src/index.js
