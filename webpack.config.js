@@ -22,6 +22,6 @@ module.exports = {
   },
   plugins: process.env.NODE_ENV === 'production'
     ? [HtmlWebpackPluginConfig]
-    : [HtmlWebpackPluginConfig, DashboardPlugin()],
+    : [HtmlWebpackPluginConfig, new DashboardPlugin()],
   devtool: 'inline-source-map',
 };
