@@ -2,6 +2,7 @@
  * This file exports the scene contents for rendering.
  */
 import * as THREE from 'three';
+import CONSTANTS from './constants';
 
 /********************************************
  * Initialize scene
@@ -16,22 +17,21 @@ const box = new THREE.Mesh(
   new THREE.BoxGeometry(1, 1, 1),
   new THREE.MeshLambertMaterial({ color: 0xff0000 }),
 );
-box.position.set(0, 1, -1);
+box.position.set(...CONSTANTS.render_camera_pos);
 scene.add(box);
 
 // Grass
-const planeW = 200;
-const planeH = 200;
-const planeZ = planeH / 2 + 1;
+// z-coordinate for center of plane
+const planeZ = CONSTANTS.plane_size / 2
 
 const plane = new THREE.Mesh(
-  new THREE.PlaneGeometry(planeW, planeH),
+  new THREE.PlaneGeometry(CONSTANTS.plane_size, CONSTANTS.plane_size),
   new THREE.MeshLambertMaterial({
     color: 0x00ff00,
     side: THREE.DoubleSide,
   }),
 );
-plane.lookAt(new THREE.Vector3(0, 1, 0));
+plane.lookAt(CONSTANTS.up);
 plane.position.set(0, 0, planeZ);
 scene.add(plane);
 
