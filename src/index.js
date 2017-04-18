@@ -49,12 +49,16 @@ renderingCamera.lookAt(new THREE.Vector3(0, 1, 1));
 class Controls {
   constructor() {
     this.fov = 75;
+    this.shutterSpeed = 200;
+    this.fStop = 8;
   }
 }
 
 const controls = new Controls();
 const gui = new dat.GUI();
 gui.add(controls, 'fov', 5, 200);
+gui.add(controls, 'shutterSpeed', 1, 5000);
+gui.add(controls, 'fStop', 1, 22);
 
 function setFov(fov) {
   controls.fov = fov;
