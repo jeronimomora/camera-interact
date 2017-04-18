@@ -9,7 +9,7 @@ import * as THREE from 'three';
 const scene = new THREE.Scene();
 
 /********************************************
- * Scene elements
+ * Static scene elements
  ********************************************/
 // Box that represents scene camera
 const box = new THREE.Mesh(
@@ -126,5 +126,33 @@ light.add(
 light.position.set(0, 100, planeZ - planeZ / 2);
 light.intensity = 5;
 scene.add(light);
+
+/********************************************
+ * Dynamic elements
+ ********************************************/
+// TODO(sam): DRY up positions
+const left_line_geom = new THREE.CylinderGeometry(0.5, 0.5, 200);
+const right_line_geom = new THREE.CylinderGeometry(0.5, 0.5, 200);
+
+const line_mat = new THREE.MeshBasicMaterial({ color: 0xcccccc });
+const left_line = new THREE.Mesh(
+  left_line_geom,
+  line_mat,
+);
+
+const right_line = new THREE.Mesh(
+  right_line_geom,
+  line_mat,
+);
+
+// TODO(sam): Work out the math for these to be the correct position and angle
+left_line.rotation.z = Math.PI / 2;
+left_line.rotation.y = Math.PI / 4;
+
+right_line.rotation.z = Math.PI / 2;
+right_line.rotation.y = -Math.PI / 4;
+
+scene.add(left_line);
+scene.add(right_line);
 
 export default scene;
