@@ -4,7 +4,7 @@ import dat from './lib/dat.gui.min';
 import OrbitControlsInit from 'three-orbit-controls';
 const OrbitControls = OrbitControlsInit(THREE);
 
-import scene from './scene';
+import {mainScene, staticScene} from './scene';
 
 /********************************************
  * Main and static renderers
@@ -75,8 +75,9 @@ const render = () => {
 
   setFov(controls.fov);
 
-  mainRenderer.render(scene, sceneCamera);
-  staticRenderer.render(scene, renderingCamera);
+  debugger;
+  mainRenderer.render(mainScene, sceneCamera);
+  staticRenderer.render(staticScene, renderingCamera);
 };
 
 render();
