@@ -1,10 +1,10 @@
 import * as THREE from 'three';
-import dat from './lib/dat.gui.min';
+import dat from '../lib/dat.gui.min';
 
 import OrbitControlsInit from 'three-orbit-controls';
 const OrbitControls = OrbitControlsInit(THREE);
 
-import {mainScene, staticScene} from './scene';
+import generateObjects from './objects';
 
 /********************************************
  * Main and static renderers
@@ -17,6 +17,17 @@ staticRenderer.setSize(window.innerWidth, window.innerHeight / 2);
 
 document.body.appendChild(mainRenderer.domElement);
 document.body.appendChild(staticRenderer.domElement);
+
+/********************************************
+ * Initialize scene
+ ********************************************/
+const mainScene = new THREE.Scene();
+const staticScene = new THREE.Scene();
+
+const mainSceneObjs = generateObjects();
+Object.values(mainSceneObjs).map(obj => mainScene.add(obj));
+const staticSceneObjs = generateObjects();
+Object.values(staticSceneObjs).map(obj => staticScene.add(obj));
 
 /********************************************
  * Camera set up
@@ -75,7 +86,6 @@ const render = () => {
 
   setFov(controls.fov);
 
-  debugger;
   mainRenderer.render(mainScene, sceneCamera);
   staticRenderer.render(staticScene, renderingCamera);
 };
