@@ -844,6 +844,10 @@ code-point-at@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
+coffee-script@^1.10.0:
+  version "1.12.5"
+  resolved "https://registry.yarnpkg.com/coffee-script/-/coffee-script-1.12.5.tgz#809f4585419112bbfe46a073ad7543af18c27346"
+
 color-convert@^1.0.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.0.tgz#1accf97dd739b983bf994d56fec8f95853641b7a"
@@ -1987,6 +1991,13 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
 
+mathbox@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/mathbox/-/mathbox-0.1.0.tgz#b2808377c87a88c62b4b08889049245c827473a9"
+  dependencies:
+    coffee-script "^1.10.0"
+    three "^0.72.0"
+
 media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
@@ -3000,6 +3011,10 @@ tar@^2.2.1:
 three-orbit-controls@^82.1.0:
   version "82.1.0"
   resolved "https://registry.yarnpkg.com/three-orbit-controls/-/three-orbit-controls-82.1.0.tgz#11a7f33d0a20ecec98f098b37780f6537374fab4"
+
+three@^0.72.0:
+  version "0.72.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.72.0.tgz#ac4eb95fd4e5b159c0ffabb609617fec90a336b2"
 
 three@^0.84.0:
   version "0.84.0"

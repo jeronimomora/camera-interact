@@ -1,8 +1,14 @@
 /**
  * This file exports the scene contents for rendering.
+ *
+ * Remember that in our coordinate system, the camera points down the positive
+ * z-axis, the x-axis points upward along the scene, and the y-axis points
+ * upward out of the scene (height).
  */
 import * as THREE from 'three';
-import CONSTANTS from './constants';
+import C from './constants';
+
+const degToRadians = degrees => degrees / 180 * Math.PI;
 
 export default function generateObjects() {
   /********************************************
@@ -13,19 +19,19 @@ export default function generateObjects() {
     new THREE.BoxGeometry(1, 1, 1),
     new THREE.MeshLambertMaterial({ color: 0xff0000 }),
   );
-  box.position.set(...CONSTANTS.render_camera_pos);
+  box.position.set(...C.render_camera_pos);
 
   // Grass
-  const planeZ = CONSTANTS.plane_size / 2;
+  const planeZ = C.plane_size / 2;
 
   const plane = new THREE.Mesh(
-    new THREE.PlaneGeometry(CONSTANTS.plane_size, CONSTANTS.plane_size),
+    new THREE.PlaneGeometry(C.plane_size, C.plane_size),
     new THREE.MeshLambertMaterial({
       color: 0x00ff00,
       side: THREE.DoubleSide,
     }),
   );
-  plane.lookAt(CONSTANTS.up);
+  plane.lookAt(C.up);
   plane.position.set(0, 0, planeZ);
 
   //Blue sphere
@@ -118,20 +124,30 @@ export default function generateObjects() {
    * Dynamic elements
    ********************************************/
   // TODO(sam): DRY up positions
-  const left_line_geom = new THREE.CylinderGeometry(0.5, 0.5, 200);
-  const right_line_geom = new THREE.CylinderGeometry(0.5, 0.5, 200);
+  const left_line_geom = new THREE.CylinderGeometry(
+    C.fov_line_width,
+    C.fov_line_width,
+    C.fov_line_length,
+  );
+  const right_line_geom = new THREE.CylinderGeometry(
+    C.fov_line_width,
+    C.fov_line_width,
+    C.fov_line_length,
+  );
+  left_line_geom.rotateZ(degToRadians(90));
+  left_line_geom.translate(-C.fov_line_length / 2, 0, 0);
+  right_line_geom.rotateZ(degToRadians(-90));
+  right_line_geom.translate(C.fov_line_length / 2, 0, 0);
 
   const line_mat = new THREE.MeshBasicMaterial({ color: 0xcccccc });
-  const left_line = new THREE.Mesh(left_line_geom, line_mat);
 
+  const left_line = new THREE.Mesh(left_line_geom, line_mat);
   const right_line = new THREE.Mesh(right_line_geom, line_mat);
 
   // TODO(sam): Work out the math for these to be the correct position and angle
-  left_line.rotation.z = Math.PI / 2;
-  left_line.rotation.y = Math.PI / 4;
-
-  right_line.rotation.z = Math.PI / 2;
-  right_line.rotation.y = -Math.PI / 4;
+  const angle = (180 - 75) / 2;
+  left_line.rotation.y = degToRadians(angle);
+  right_line.rotation.y = -degToRadians(angle);
 
   return {
     box,

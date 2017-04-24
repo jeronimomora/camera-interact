@@ -15,6 +15,8 @@ export default {
   // Size of the plane that objects sit on top of
   plane_size: 300,
 
+  // Width of the FOV lines
+  fov_line_width: 0.1,
   // Length of the FOV lines
   fov_line_length: 200,
 };
