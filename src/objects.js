@@ -4,7 +4,7 @@
 import * as THREE from 'three';
 import CONSTANTS from './constants';
 
-export default function generateObjects() {
+export default function generateObjects(key) {
   /********************************************
    * Static scene elements
    ********************************************/
@@ -33,7 +33,7 @@ export default function generateObjects() {
     new THREE.SphereGeometry(0.5, 16, 8),
     new THREE.MeshLambertMaterial({ color: 0x0000ff }),
   );
-  sphere.position.set(0, 1, planeZ / 4);
+  sphere.position.set(0, 1.5, planeZ / 4);
 
   //Mountains
   let radius = 10;
@@ -118,29 +118,43 @@ export default function generateObjects() {
    * Dynamic elements
    ********************************************/
   // TODO(sam): DRY up positions
+    var length = CONSTANTS.fov_line_length/100;
     var l_from = new THREE.Vector3(...CONSTANTS.render_camera_pos);
-    var l_to = new THREE.Vector3( 1, 1, 1 );
+    var l_to = new THREE.Vector3( -60.87*length, 2, 79.33*length);
     var l_direction = l_to.clone().sub(l_from);
     var l_length = l_direction.length();
-    const l_arrowHelper = new THREE.ArrowHelper(l_direction.normalize(), l_from, l_length, 0xff0000 );
+    var l_arrowHelper = new THREE.ArrowHelper(l_direction.normalize(), l_from, l_length, 0xffffff );
 
     var r_from = new THREE.Vector3(...CONSTANTS.render_camera_pos);
-    var r_to = new THREE.Vector3( -1, 2, 3 );
+    var r_to = new THREE.Vector3( 60.87*length, 2, 79.33*length );
     var r_direction = r_to.clone().sub(r_from);
     var r_length = r_direction.length();
-    const r_arrowHelper = new THREE.ArrowHelper(r_direction.normalize(), r_from, r_length, 0xff0000 );
+    var r_arrowHelper = new THREE.ArrowHelper(r_direction.normalize(), r_from, r_length, 0xffffff );
 
-
-  return {
-    box,
-    plane,
-    sphere,
-    light,
-    hemiLight,
-    cylinderCone1,
-    cylinderCone2,
-    cylinderCone3,
-    l_arrowHelper,
-    r_arrowHelper,
-  };
+    if(key == 'static'){
+        return {
+            box,
+            plane,
+            sphere,
+            light,
+            hemiLight,
+            cylinderCone1,
+            cylinderCone2,
+            cylinderCone3,
+        };
+    }
+    else if(key == 'main') {
+        return {
+            box,
+            plane,
+            sphere,
+            light,
+            hemiLight,
+            cylinderCone1,
+            cylinderCone2,
+            cylinderCone3,
+            l_arrowHelper,
+            r_arrowHelper,
+        };
+    }
 }

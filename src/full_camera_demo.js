@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import dat from '../lib/dat.gui.min';
+import CONSTANTS from './constants';
 
 import OrbitControlsInit from 'three-orbit-controls';
 const OrbitControls = OrbitControlsInit(THREE);
@@ -13,7 +14,7 @@ const mainRenderer = new THREE.WebGLRenderer();
 mainRenderer.setSize(window.innerWidth, window.innerHeight / 2);
 
 const staticRenderer = new THREE.WebGLRenderer();
-staticRenderer.setSize(window.innerWidth, window.innerHeight / 2);
+staticRenderer.setSize(CONSTANTS.staticDimension, CONSTANTS.staticDimension);
 
 document.body.appendChild(mainRenderer.domElement);
 document.body.appendChild(staticRenderer.domElement);
@@ -24,9 +25,9 @@ document.body.appendChild(staticRenderer.domElement);
 const mainScene = new THREE.Scene();
 const staticScene = new THREE.Scene();
 
-const mainSceneObjs = generateObjects();
+const mainSceneObjs = generateObjects('main');
 Object.values(mainSceneObjs).map(obj => mainScene.add(obj));
-const staticSceneObjs = generateObjects();
+var staticSceneObjs = generateObjects('static');
 Object.values(staticSceneObjs).map(obj => staticScene.add(obj));
 
 /********************************************
@@ -46,7 +47,7 @@ const orbitControls = new OrbitControls(sceneCamera, mainRenderer.domElement);
 // Camera for static rendering
 const renderingCamera = new THREE.PerspectiveCamera(
   60,
-  window.innerWidth / (window.innerHeight / 2),
+  1,
   0.1,
   1000,
 );
@@ -84,6 +85,13 @@ function setIntensity(shutterSpeed, fStop) {
     renderingCamera.updateProjectionMatrix();
 }
 
+function updateLines(fov) {
+  var fov_rad = fov*3.1415926/360;
+  var r_direction = new THREE.Vector3((CONSTANTS.fov_line_length*Math.sin(fov_rad)),2-1,(CONSTANTS.fov_line_length*Math.cos(fov_rad)+1));
+  mainSceneObjs.r_arrowHelper.setDirection(r_direction.normalize());
+  var l_direction = new THREE.Vector3(-(CONSTANTS.fov_line_length*Math.sin(fov_rad)),-(2-1),(CONSTANTS.fov_line_length*Math.cos(fov_rad)+1));
+  mainSceneObjs.l_arrowHelper.setDirection(l_direction.normalize());
+}
 /********************************************
  * Rendering
  ********************************************/
@@ -92,6 +100,7 @@ const render = () => {
 
     setFov(controls.fov);
     setIntensity(controls.shutterSpeed, controls.fStop);
+    updateLines(controls.fov);
 
   mainRenderer.render(mainScene, sceneCamera);
   staticRenderer.render(staticScene, renderingCamera);
