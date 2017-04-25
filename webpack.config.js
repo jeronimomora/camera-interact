@@ -2,17 +2,25 @@ const path = require('path');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+const indexConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
   filename: 'index.html',
-  inject: 'body',
+  inject: 'none',
+});
+const demoConfig = new HtmlWebpackPlugin({
+  template: './src/full_camera_demo.html',
+  filename: 'full_camera_demo.html',
+  inject: 'none',
 });
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    index: './src/index.js',
+    full_camera_demo: './src/full_camera_demo.js',
+  },
   output: {
     path: path.resolve('.'),
-    filename: 'index_bundle.js',
+    filename: '[name]_bundle.js',
   },
   module: {
     loaders: [
@@ -21,7 +29,7 @@ module.exports = {
     ],
   },
   plugins: process.env.NODE_ENV === 'production'
-    ? [HtmlWebpackPluginConfig]
-    : [HtmlWebpackPluginConfig, new DashboardPlugin()],
+    ? [indexConfig, demoConfig]
+    : [indexConfig, demoConfig, new DashboardPlugin()],
   devtool: 'inline-source-map',
 };
