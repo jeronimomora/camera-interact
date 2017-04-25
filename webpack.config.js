@@ -5,12 +5,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const indexConfig = new HtmlWebpackPlugin({
   template: './src/index.html',
   filename: 'index.html',
-  inject: 'none',
+  inject: false,
 });
 const demoConfig = new HtmlWebpackPlugin({
   template: './src/full_camera_demo.html',
   filename: 'full_camera_demo.html',
-  inject: 'none',
+  inject: false,
 });
 
 module.exports = {
