@@ -60,15 +60,15 @@ renderingCamera.lookAt(new THREE.Vector3(0, 1, 1));
 class Controls {
   constructor() {
     this.fov = 75;
-    this.shutterSpeed = 200;
-    this.fStop = 8;
+    this.shutterSpeed = 17;
+    this.fStop = 10;
   }
 }
 
 const controls = new Controls();
 const gui = new dat.GUI();
 gui.add(controls, 'fov', 5, 200);
-gui.add(controls, 'shutterSpeed', 1, 5000);
+gui.add(controls, 'shutterSpeed', 1, 500);
 gui.add(controls, 'fStop', 1, 22);
 
 function setFov(fov) {
@@ -78,13 +78,20 @@ function setFov(fov) {
   renderingCamera.updateProjectionMatrix();
 }
 
+function setIntensity(shutterSpeed, fStop) {
+    staticSceneObjs.light.intensity = ((shutterSpeed/17) + (10/fStop))*(5/2);
+    staticSceneObjs.hemiLight.intensity = ((shutterSpeed/17) + (10/fStop))*(1.7/2);
+    renderingCamera.updateProjectionMatrix();
+}
+
 /********************************************
  * Rendering
  ********************************************/
 const render = () => {
   requestAnimationFrame(render, { antialias: true });
 
-  setFov(controls.fov);
+    setFov(controls.fov);
+    setIntensity(controls.shutterSpeed, controls.fStop);
 
   mainRenderer.render(mainScene, sceneCamera);
   staticRenderer.render(staticScene, renderingCamera);

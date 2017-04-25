@@ -118,20 +118,18 @@ export default function generateObjects() {
    * Dynamic elements
    ********************************************/
   // TODO(sam): DRY up positions
-  const left_line_geom = new THREE.CylinderGeometry(0.5, 0.5, 200);
-  const right_line_geom = new THREE.CylinderGeometry(0.5, 0.5, 200);
+    var l_from = new THREE.Vector3(...CONSTANTS.render_camera_pos);
+    var l_to = new THREE.Vector3( 1, 1, 1 );
+    var l_direction = l_to.clone().sub(l_from);
+    var l_length = l_direction.length();
+    const l_arrowHelper = new THREE.ArrowHelper(l_direction.normalize(), l_from, l_length, 0xff0000 );
 
-  const line_mat = new THREE.MeshBasicMaterial({ color: 0xcccccc });
-  const left_line = new THREE.Mesh(left_line_geom, line_mat);
+    var r_from = new THREE.Vector3(...CONSTANTS.render_camera_pos);
+    var r_to = new THREE.Vector3( -1, 2, 3 );
+    var r_direction = r_to.clone().sub(r_from);
+    var r_length = r_direction.length();
+    const r_arrowHelper = new THREE.ArrowHelper(r_direction.normalize(), r_from, r_length, 0xff0000 );
 
-  const right_line = new THREE.Mesh(right_line_geom, line_mat);
-
-  // TODO(sam): Work out the math for these to be the correct position and angle
-  left_line.rotation.z = Math.PI / 2;
-  left_line.rotation.y = Math.PI / 4;
-
-  right_line.rotation.z = Math.PI / 2;
-  right_line.rotation.y = -Math.PI / 4;
 
   return {
     box,
@@ -142,7 +140,7 @@ export default function generateObjects() {
     cylinderCone1,
     cylinderCone2,
     cylinderCone3,
-    left_line,
-    right_line,
+    l_arrowHelper,
+    r_arrowHelper,
   };
 }
