@@ -36,7 +36,7 @@ var view = mathbox.cartesian({
   scale: [2, 1, 1],
 })
 
-const present = view.present({ index: 5 });
+const present = view.present({ index: 1 });
 
 const camera = view.camera({
   proxy: true,
@@ -114,6 +114,7 @@ present
         depth: 0.5,
       });
 
+// TODO: Draw blurred image on grid
 present
   .slide()
     .reveal()
@@ -139,6 +140,11 @@ present
     .end()
     .slide()
       .reveal()
+
+// Adds a vector from the image through the origin and onto the sensor
+function addPinholeVec(slide, from = [0, 0, 1], color = 0xcccccc) {
+  debugger;
+}
 
 present
   .slide()
