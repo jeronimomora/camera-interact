@@ -3,6 +3,8 @@ import OrbitControlsInit from 'three-orbit-controls';
 
 import 'mathbox';
 
+import C from './constants';
+
 const mathbox = window.mathBox({
   plugins: ['core', 'cursor', 'controls'],
   controls: { klass: OrbitControlsInit(THREE) },
@@ -32,11 +34,11 @@ if (window == top) {
 
 // Create cartesian view
 var view = mathbox.cartesian({
-  range: [[-2, 2], [-1, 1], [-1, 1]],
-  scale: [2, 1, 1],
+  range: [[-1, 1], [-1, 1], [-1, 1]],
+  scale: [1, 1, 1],
 })
 
-const present = view.present({ index: 1 });
+const present = view.present({ index: 5 });
 
 const camera = view.camera({
   proxy: true,
@@ -44,7 +46,50 @@ const camera = view.camera({
   lookAt: [0, 0, 0],
 });
 
-present
+/**
+ * Draws a vector on the presentation.
+ *
+ * Note that the .end() call only closes the reveal(), not the slide(). This
+ * allows you to draw multiple vectors in the same scene by repeatedly calling
+ * this function.
+ *
+ * @param {present} present - The mathbox presentation
+ * @param {from} Array[3] - Coordinate of vector start
+ * @param {to} Array[3] - Coordinate of vector end
+ * @param {object} vecOpts - Arguments to pass into vector()
+ */
+const DEFAULT_VEC_OPTS = {
+  width: 6,
+  end: true,
+};
+function addVector(present, from, to, vecOpts = {}) {
+  return present.slide()
+    .reveal()
+      .voxel({
+        data: [
+          ...from,
+          ...to,
+        ],
+        items: 2,
+        channels: 3,
+      })
+      .vector(Object.assign({}, DEFAULT_VEC_OPTS, vecOpts))
+    .end();
+}
+
+/**
+ * Adds a simple box tree to a new slide.
+ *
+ * @param {present} present - The mathbox presentation
+ */
+function addTree(present) {
+  debugger;
+}
+
+/**
+ * Sensor intro
+ */
+let sensor = present
   .slide()
     .reveal()
       .voxel({
@@ -70,38 +115,20 @@ present
           [{ color: 0xFF00FF }],
         ],
       })
-    .end()
-    .slide()
-      .reveal()
-        .voxel({
-          data: [
-            -0.7, -0.7, 0.7,
-            -0.3, -0.1, 0,
-          ],
-          items: 2,
-          channels: 3,
-        })
-        .vector({
-          color: 0x0000FF,
-          end: true,
-          width: 6,
-        })
-      .end()
-      .slide()
-        .reveal()
-          .voxel({
-            data: [
-              0.6, -0.7, 0.7,
-              0.3, 0.1, 0,
-            ],
-            items: 2,
-            channels: 3,
-          })
-          .vector({
-            color: 0xFF0000,
-            end: true,
-            width: 6,
-          });
+    .end();
+
+sensor = addVector(
+  sensor,
+  [-0.7, -0.7, 0.7],
+  [-0.3, -0.1, 0],
+  { color: 0x0000FF },
+);
+sensor = addVector(
+  sensor,
+  [0.6, -0.7, 0.7],
+  [0.3, 0.1, 0],
+  { color: 0xFF0000 },
+);
 
 // TODO: Draw simple picture on grid
 present
@@ -114,16 +141,19 @@ present
         depth: 0.5,
       });
 
+/**
+ * Blurred sensor image
+ */
 // TODO: Draw blurred image on grid
 present
   .slide()
     .reveal()
       .transform({
-        position: [-1, 0, 0],
+        position: [-2, 0, 0],
       })
       .step({
         script: [
-          [{ position: [-1, 0, 0] }],
+          [{ position: [-2, 0, 0] }],
           [{
             position: [0, 0, 0],
             rotation: [0, -π / 2, 0],
@@ -137,20 +167,22 @@ present
         depth: 0.5,
       })
       .end()
+      .voxel(C.treeLeavesData)
+      .face({ color: C.treeLeavesColor })
+      .voxel(C.treeTrunkData)
+      .face({ color: C.treeTrunkColor })
     .end()
     .slide()
       .reveal()
 
-// Adds a vector from the image through the origin and onto the sensor
-function addPinholeVec(slide, from = [0, 0, 1], color = 0xcccccc) {
-  debugger;
-}
-
+/**
+ * Pinhole camera and vectors
+ */
 present
   .slide()
     .reveal()
       .transform({
-        position: [-1, 0, 0],
+        position: [-2, 0, 0],
       })
       .grid({
         axes: [2, 3],
@@ -171,6 +203,15 @@ present
     .end()
     .slide()
       .reveal()
+        .transform({
+          position: [2, 0, 0],
+        })
+        .grid({
+          axes: [2, 3],
+          width: 2,
+          color: 0xcccccc,
+          depth: 0.5,
+        })
 
 // TODO: Insert animation for rendering an image
 
