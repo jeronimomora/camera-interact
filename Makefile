@@ -21,7 +21,7 @@ prettify:
 deploy: build
 	@echo "${BLUE}Pushing page to github...${NOCOLOR}."
 	git pull origin master
-	git add index.html index_bundle.js
+	git add -A
 	git commit -m 'Deploy'
 	git push origin master
 	@echo "${BLUE}Done! Results at samlau.me/camera-interact${NOCOLOR}."
