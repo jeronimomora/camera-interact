@@ -111,7 +111,6 @@ function addTree(slide) {
     .face({ color: C.treeTrunkColor });
 }
 
-
 /**
  * Returns the 3D world coordinates of a pixel on the sensor.
  *
@@ -147,9 +146,9 @@ let sensor = present
       .voxel({
         data: [
           -0.5, -0.5, 0,
-          0.5, -0.5, 0,
-          0.5, 0.5, 0,
-          -0.5, 0.5, 0,
+           0.5, -0.5, 0,
+           0.5,  0.5, 0,
+          -0.5,  0.5, 0,
         ],
         items: 4,
         channels: 3,
@@ -281,5 +280,59 @@ let treeImage = present
       })
 
 // TODO: Insert explanation for changing either distance to pinhole or
-// sensor size for FOV
+// TODO: sensor size for FOV
 
+let FOV = present
+    .slide()
+    .reveal()
+    .transform({
+        position: [-2, 0, 0],
+    })
+    .grid({
+        axes: [2, 3],
+        width: 2,
+        color: 0x000000,
+        depth: 0.5,
+    })
+    .end()
+    .voxel({
+        data: [-1.5, 0, 0],
+        items: 1,
+        channels: 3,
+    })
+    .point({
+        size: 8,
+        color: 0x222222,
+    })
+    .voxel({
+        data: [
+            -0.6, -2, 0,
+            -0.6,  2, 0,
+            -0.4,  2, 0,
+            -0.4, -2, 0,
+        ],
+        items: 4,
+        channels: 3,
+    })
+    .face({
+        color: 0xcccccc,
+        width: 3,
+        shaded: true,
+        line: true,
+    })
+    .voxel({
+        data: [0.35, 0, 0],
+        items: 1,
+        channels: 3,
+    })
+    .point({
+        size: 8,
+        color: 0x222222,
+    });
+
+FOV = addTree(FOV);
+FOV = addVector(FOV.slide().reveal(), [2, 1, 0], [-0.5,1,0],{ color: C.treeLeavesColor }).end();
+FOV = addVector(FOV.slide().reveal(), [-.5, 1, 0], [-2,-.5,0],{ color: C.treeLeavesColor }).end();
+FOV = addVector(FOV.slide().reveal(), [2, 1, 0], [-2,-.5,0],{ color: C.treeLeavesColor }).end();
+FOV = addVector(FOV.slide().reveal(), [2, 1, 0], [-0.5,-.5,0],{ color: C.treeLeavesColor }).end();
+FOV = addVector(FOV.slide().reveal(), [-.5, -.5, 0], [-2,-.5,0],{ color: C.treeLeavesColor }).end();
