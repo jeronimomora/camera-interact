@@ -479,12 +479,9 @@ let notFocused = aperture
     .step({
         script: [
             { position: [-3, 0, 0] },
-            { position: [-3, 0, 0] },
-            { position: [-3, 0, 0] },
-            { position: [-3, 0, 0] },
-            { position: [-3, 0, 0] },
-            { position: [-3, 0, 0] },
-            { position: [-2.3, 0, 0] }
+            { position: [-2.3, 0, 0] },
+            { position: [-2.3, 0, 0] },
+            { position: [-3, 0, 0] }
         ],
     })
   .grid({
@@ -525,39 +522,21 @@ let notFocused = aperture
   });
 
 notFocused = moveTreeOver(2, 0, 0, notFocused);
-notFocused = addVector(notFocused.slide(), [4, 1, 0], [0, 1, 0], {
-  color: C.treeLeavesColor,
-});
-notFocused = addVector(notFocused.slide(), [0, 1, 0], [-3, -1, 0], {
-  color: C.treeLeavesColor,
-});
-notFocused = addVector(
-  notFocused.slide().reveal(),
-  [4, 1, 0],
-  [-3, -0.75, 0],
-  {
-    color: C.treeLeavesColor,
-  },
-);
-notFocused = addVector(notFocused.slide().reveal(), [4, 1, 0], [0, -0.6, 0], {
-  color: C.treeLeavesColor,
-});
-notFocused = addVector(
-  notFocused.slide().reveal(),
-  [0, -0.6, 0],
-  [-3, -0.6, 0],
-  {
-    color: C.treeLeavesColor,
-  },
-);
-notFocused = addVector(
-    notFocused.slide().reveal(),
-    [4, 1, 0],
-    [4, 1, 0],
+notFocused = addVectors(notFocused,
+    [
+        [[4, 1, 0],    [0, 1, 0]],
+        [[0, 1, 0],    [-3, -1, 0]],
+        [[4, 1, 0],    [-3, -0.75, 0]],
+        [[4, 1, 0],    [0, -0.6, 0]],
+        [[0, -0.6, 0], [-3, -0.60, 0]],
+        [[4, 1, 0],    [4, 1, 0]]
+    ],
     {
         color: C.treeLeavesColor,
-    },
-);
+    }, false);
+notFocused = addVector(notFocused.slide().reveal(), [4, 1, 0], [4, 1, 0], {
+    color: C.treeLeavesColor,
+}).end();
 
 let smallerAp = aperture
   .slide()
@@ -603,26 +582,18 @@ let smallerAp = aperture
   });
 
 smallerAp = moveTreeOver(2, 0, 0, smallerAp);
-smallerAp = addVector(smallerAp.slide().reveal(), [4, 1, 0], [0, 0.6, 0], {
-  color: C.treeLeavesColor,
-}).end();
-smallerAp = addVector(smallerAp.slide().reveal(), [0, 0.6, 0], [-3, -0.6, 0], {
-  color: C.treeLeavesColor,
-}).end();
-smallerAp = addVector(smallerAp.slide().reveal(), [4, 1, 0], [-3, -0.75, 0], {
-  color: C.treeLeavesColor,
-}).end();
-smallerAp = addVector(smallerAp.slide().reveal(), [4, 1, 0], [0, -0.6, 0], {
-  color: C.treeLeavesColor,
-}).end();
-smallerAp = addVector(
-  smallerAp.slide().reveal(),
-  [0, -0.6, 0],
-  [-3, -0.6, 0],
-  {
-    color: C.treeLeavesColor,
-  },
-).end();
+
+smallerAp = addVectors(smallerAp,
+    [
+        [[4, 1, 0],    [0, 0.6, 0]],
+        [[0, 0.6, 0],  [-3, -0.6, 0]],
+        [[4, 1, 0],    [-3, -0.75, 0]],
+        [[4, 1, 0],    [0, -0.6, 0]],
+        [[0, -0.6, 0], [-3, -0.6, 0]]
+    ],
+    {
+        color: C.treeLeavesColor,
+    }, false);
 
 let smallerAp2 = aperture
   .slide()
@@ -668,42 +639,23 @@ let smallerAp2 = aperture
   });
 
 smallerAp2 = moveTreeOver(2, 0, 0, smallerAp2);
-smallerAp2 = addVector(smallerAp2.slide().reveal(), [4, 1, 0], [0, 0.3, 0], {
-  color: C.treeLeavesColor,
-}).end();
-smallerAp2 = addVector(
-  smallerAp2.slide().reveal(),
-  [0, 0.3, 0],
-  [-3, -0.67, 0],
-  {
-    color: C.treeLeavesColor,
-  },
-).end();
-smallerAp2 = addVector(
-  smallerAp2.slide().reveal(),
-  [4, 1, 0],
-  [-3, -0.70, 0],
-  {
-    color: C.treeLeavesColor,
-  },
-).end();
-smallerAp2 = addVector(smallerAp2.slide().reveal(),
-  [4, 1, 0],
-  [0, -0.3, 0], {
-  color: C.treeLeavesColor,
-}).end();
-smallerAp2 = addVector(
-  smallerAp2.slide().reveal(),
-  [0, -0.3, 0],
-  [-3, -0.65, 0],
-  {
-    color: C.treeLeavesColor,
-  },
-).end();
+
+smallerAp2 = addVectors(smallerAp2,
+[
+[[4, 1, 0],    [0, 0.3, 0]],
+[[0, 0.3, 0],  [-3, -0.67, 0]],
+[[4, 1, 0],    [-3, -0.70, 0]],
+[[4, 1, 0],    [0, -0.3, 0]],
+[[0, -0.3, 0], [-3, -0.65, 0]]
+],
+    {
+        color: C.treeLeavesColor,
+    }, false);
+
 smallerAp2 = addVector(
     smallerAp2.slide().reveal(),
     [4, 1, 0],
-    [0, -1, 0],
+    [-4, -2.2, 0],
     {
         color: C.treeLeavesColor,
     },
