@@ -21,10 +21,7 @@ const DEFAULT_VEC_OPTS = {
 export function addVector(slide, from, to, vecOpts = {}) {
   return slide
     .voxel({
-      data: [
-        ...from,
-        ...to,
-      ],
+      data: [...from, ...to],
       items: 2,
       channels: 3,
     })
@@ -42,12 +39,9 @@ export function addVector(slide, from, to, vecOpts = {}) {
  */
 export function addVectors(slide, coords, vecOpts = {}, sequential = true) {
   return coords.reduce((sl, [from, to]) => {
-      if (sequential)
-        sl = sl.slide().reveal();
-      return addVector(sl, from, to, vecOpts);
-    },
-    slide,
-  );
+    if (sequential) sl = sl.slide().reveal();
+    return addVector(sl, from, to, vecOpts);
+  }, slide);
 }
 
 /**
@@ -63,15 +57,64 @@ export function addTree(slide) {
     .face({ color: C.treeTrunkColor });
 }
 
+/**
+ * Draws an image on the grid. For this to look right, the slide should already
+ * have the grid positioned at the origin facing the camera.
+ *
+ * @param {slide} slide - The mathbox presentation
+ * @param {Array} image - An array containing { i, j, color } objects. Each
+ *     object will be rendered as one pixel on the sensor at position i, j.
+ *
+ *     i is the height position on the sensor, starting from the bottom.
+ *     j is the width position on the sensor, starting from the left.
+ */
+export function addImage(slide, image) {
+  const coordToCorners = (i, j) => [
+    toPixelCoords(i, j),
+    toPixelCoords(i + 1, j),
+    toPixelCoords(i + 1, j + 1),
+    toPixelCoords(i, j + 1),
+  ];
+
+  debugger;
+
+  image.reduce((sl, { i, j, color }) => {
+    return sl.voxel({ data: coordToCorners(i, j), items: 4, channels: 3 })
+      .face({ color });
+  }, slide);
+}
 
 /**
- * Returns the 3D world coordinates of a pixel on the sensor.
+ * Returns the 3D world coordinates of a pixel center on the sensor when the
+ * sensor is receiving light rays. Useful for addVector when drawing light
+ * rays.
  *
- * @param {int} i - Height position on the sensor
- * @param {int} j - Width position on the sensor
+ * @param {int} i - Height position on the sensor, starting from the bottom
+ * @param {int} j - Width position on the sensor, starting from the left
  */
 export function toSensorCoords(i, j) {
-  return [-2, (i - 10) * 0.1 + 0.05, (10 - j) * 0.1 + 0.05];
+  const { xPos, size, pixelSize } = C.sensor;
+  return [
+    xPos,
+    (i - size / 2) * pixelSize + pixelSize / 2,
+    - (j - size / 2) * pixelSize + pixelSize / 2,
+  ];
+}
+
+/**
+ * Returns the 3D world coordinates of the top left corner of a pixel on the
+ * sensor. Useful for drawImage when drawing the rendered camera image.
+ *
+ * @param {int} i - Height position on the sensor, starting from the bottom
+ * @param {int} j - Width position on the sensor, starting from the left
+ */
+export function toPixelCoords(i, j) {
+  const { size, pixelSize } = C.sensor;
+  return [
+    (j - size / 2) * pixelSize,
+    (i - size / 2) * pixelSize,
+    0,
+  ];
 }
 
 /**
@@ -84,8 +127,5 @@ export function toSensorCoords(i, j) {
 export function coordsThroughPinhole(sensorCoord, fromXPos) {
   const [x, y, z] = sensorCoord;
   const multiple = (fromXPos - x) / x;
-  return [
-    [x + multiple * x, y + multiple * y, z + multiple * z],
-    sensorCoord,
-  ];
+  return [[x + multiple * x, y + multiple * y, z + multiple * z], sensorCoord];
 }

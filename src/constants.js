@@ -21,6 +21,18 @@ export default {
   //Static viewing dimension
   staticDimension: 500,
 
+  sensor: {
+    // Sensor x coordinate when receiving light ray from object
+    xPos: -2,
+
+    // Number of pixels on each side of sensor
+    size: 20,
+
+    // Width of pixel in world coords
+    pixelSize: 0.1,
+  },
+
+  // Parameters for tree
   treeLeavesColor: 0x6CCC1E,
   treeTrunkColor: 0x584C14,
   treeLeavesData: {
