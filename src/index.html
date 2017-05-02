@@ -32,6 +32,78 @@
 
     <div id="cameras"></div>
 
+    <div class="notes">
+      <p class="slide slide-1">
+      Here we have a little square that does something pretty simple.
+      </p>
+      <p class="slide slide-2">
+      When a blue ray of light hits it, it records blue.
+      </p>
+      <p class="slide slide-3">
+      If a red ray of light hits it, it records magenta (the combination of red and blue).
+      </p>
+      <p class="slide slide-4">
+      We call each of these squares a pixel. If we make a big grid out of these pixels, we have a full-blown image sensor...
+      </p>
+      <p class="slide slide-5">
+      ...and in we can get the right light rays to hit the right spots on the sensor, we can get an image! This is basically how cameras record images.
+      </p>
+      <p class="slide slide-6">
+      Our first thought might be to just stick the sensor in front of something we want to take a picture of, like this block tree. This, however, won't work, because...
+      </p>
+      <p class="slide slide-7">
+      ...each pixel on the sensor will get rays from the top of the tree...
+      </p>
+      <p class="slide slide-8">
+      ...as well as the bottom.
+      </p>
+      <p class="slide slide-9">
+      Since each pixel gets all the rays from all parts of the tree, the final image will just be a single color. No good. (In reality, if you did this the image would be completely white since each pixel would be flooded with light from everywhere, not just the tree).
+      </p>
+      <p class="slide slide-10">
+      So how do we make an actual image on the sensor? We want each pixel on the sensor to receive light from a single spot on the image. One way of doing this is to cover up the sensor to only let light in through one spot. This is called a <a href="https://www.wikiwand.com/en/Pinhole_camera">pinhole camera</a>, and you can easily make one yourself using a shoebox if you'd like.
+      </p>
+      <p class="slide slide-11">
+      Each ray of light needs to go through the pinhole to get to the sensor. Here's a ray from the tree leaves...
+      </p>
+      <p class="slide slide-12">
+      And another.
+      </p>
+      <p class="slide slide-13">
+      Here's one from the trunk.
+      </p>
+      <p class="slide slide-14">
+      And another.
+      </p>
+      <p class="slide slide-15">
+      Lo and behold! We have an image. You'll notice that the image is upside down. This is a natural effect of using a pinhole camera. In fact, your eyes produce upside-down images too! It's just that your brain processes them right-side-up.
+      </p>
+      <p class="slide slide-16">
+      You might have noticed that the image cuts off big portions of the tree. Why is that the case?
+      </p>
+      <p class="slide slide-17">
+      Well, if we trace a ray from the top of the tree through the pinhole it completely misses the sensor.
+      </p>
+      <p class="slide slide-18">
+      Same goes for the bottom. Any ray that doesn't hit the sensor doesn't get recorded. How can we get the entire tree into the frame?
+      </p>
+      <p class="slide slide-19">
+      One easy way is to just increase the sensor size.
+      </p>
+      <p class="slide slide-20">
+      Now we're in business. Unfortunately, actual cameras can't adjust their sensor sizes on the fly.
+      </p>
+      <p class="slide slide-21">
+      But, we can do something else. Notice how the rays miss the sensor?
+      </p>
+      <p class="slide slide-22">
+      If we just move the sensor forward, now the rays hit the sensor.
+      </p>
+      <p class="slide slide-23">
+      Now we have the entire tree on the sensor! This is how we adjust <em>field-of-view (FOV)</em>, or how much of the scene is in the camera image. We can increase the FOV by increasing the sensor size or by moving the sensor closer to the pinhole.
+      </p>
+    </div>
+
     <script src="index_bundle.js"></script>
   </body>
 </html>

@@ -50,7 +50,7 @@ var view = mathbox.cartesian({
   scale: [1, 1, 1],
 });
 
-const present = view.present({ index: 18 });
+const present = view.present({ index: 4 });
 
 const camera = view.camera({
   proxy: true,
@@ -97,12 +97,14 @@ sensor = addVector(sensor.slide().reveal(), [0.6, -0.7, 0.7], [0.3, 0.1, 0], {
 }).end();
 
 // TODO: Draw simple picture on grid
-present.slide().reveal().grid({
+let simpleImage = present.slide().reveal().grid({
   axes: [1, 2],
   width: 2,
   color: 0xcccccc,
   depth: 0.5,
-});
+}).slide().reveal();
+
+// simpleImage = addImage(simpleImage, C.sampleImageData);
 
 /**
  * Blurred sensor image
@@ -122,14 +124,34 @@ let blurred = present
   })
   .end();
 
-addTree(blurred);
+blurred = addTree(blurred);
+blurred = addVectors(blurred, [
+  [[1, 1, 0], toSensorCoords(10, 10)],
+], { color: C.treeLeavesColor }, true);
+blurred = addVectors(blurred, [
+  [[1.25, -1, 0], toSensorCoords(10, 10)],
+], { color: C.treeTrunkColor }, true);
 
-let blurredImage = present.slide().reveal().grid({
-  axes: [1, 2],
-  width: 2,
-  color: 0xcccccc,
-  depth: 0.5,
-});
+let blurredImage = present
+  .slide()
+  .reveal()
+  .grid({
+    axes: [1, 2],
+    width: 2,
+    color: 0xcccccc,
+    depth: 0.5,
+  })
+  .voxel({
+    data: [
+      toPixelCoords(0, 0),
+      toPixelCoords(20, 0),
+      toPixelCoords(20, 20),
+      toPixelCoords(0, 20),
+    ],
+    items: 4,
+    channels: 3,
+  })
+  .face({ color: 0x3f51b5 })
 
 /**
  * Pinhole camera and vectors
