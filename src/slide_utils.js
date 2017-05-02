@@ -76,7 +76,7 @@ export function addImage(slide, image) {
     toPixelCoords(i, j + 1),
   ];
 
-  image.reduce((sl, { i, j, color }) => {
+  return image.reduce((sl, { i, j, color }) => {
     return sl.voxel({ data: coordToCorners(i, j), items: 4, channels: 3 })
       .face({ color });
   }, slide);
