@@ -1,8 +1,10 @@
 import * as THREE from 'three';
 import OrbitControlsInit from 'three-orbit-controls';
+import $ from 'jquery';
 
 import 'mathbox';
 
+import Controller from './Controller';
 import C from './constants';
 import {
   addVector,
@@ -40,17 +42,13 @@ if (window == top) {
     switch (e.keyCode) {
       case 37:
       case 38:
-        fov.set('index', fov.get('index') - 1);
-        console.log('Slide: ', fov.get('index'));
-        aperture.set('index', aperture.get('index') - 1);
-        console.log('Slide: ', aperture.get('index'));
+        controllerFov.prev();
+        controllerAp.prev();
         break;
       case 39:
       case 40:
-        fov.set('index', fov.get('index') + 1);
-        console.log('Slide: ', fov.get('index'));
-        aperture.set('index', aperture.get('index') + 1);
-        console.log('Slide: ', aperture.get('index'));
+        controllerFov.next();
+        controllerAp.next();
         break;
     }
   };
@@ -66,8 +64,12 @@ var viewAperture = mathboxAperture.cartesian({
   scale: [1, 1, 1],
 });
 
+// Initialize controllers
 const fov = viewFov.present({ index: 1 });
+const controllerFov = new Controller($('#fov'), fov, 23);
+
 const aperture = viewAperture.present({ index: 1 });
+const controllerAp = new Controller($('#aperture'), aperture, 23);
 
 viewFov.camera({
   proxy: true,
