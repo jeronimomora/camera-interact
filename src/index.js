@@ -12,6 +12,7 @@ import {
   toSensorCoords,
   toPixelCoords,
   coordsThroughPinhole,
+  moveTreeOver
 } from './slide_utils';
 
 const mathbox = window.mathBox({
@@ -156,7 +157,7 @@ let pinholeScene = present
     color: 0x222222,
   });
 
-pinholeScene = addTree(pinholeScene);
+pinholeScene = addTree(pinholeScene,C.treeLeavesData, C.treeTrunkData);
 pinholeScene = addVectors(
   pinholeScene,
   [
@@ -237,61 +238,126 @@ let sensorSizeIncreasing = present
 sensorSizeIncreasing = addTree(sensorSizeIncreasing);
 
 let FOV = present
-  .slide()
-  .reveal()
-  .transform({
-    position: [-2, 0, 0],
-  })
-  .grid({
-    axes: [2, 3],
-    width: 2,
-    color: 0x000000,
-    depth: 0.5,
-  })
-  .end()
-  .voxel({
-    data: [-1.5, 0, 0],
-    items: 1,
-    channels: 3,
-  })
-  .point({
-    size: 8,
-    color: 0x222222,
-  })
-  .voxel({
-    data: [-0.6, -2, 0, -0.6, 2, 0, -0.4, 2, 0, -0.4, -2, 0],
-    items: 4,
-    channels: 3,
-  })
-  .face({
-    color: 0xcccccc,
-    width: 3,
-    shaded: true,
-    line: true,
-  })
-  .voxel({
-    data: [0.35, 0, 0],
-    items: 1,
-    channels: 3,
-  })
-  .point({
-    size: 8,
-    color: 0x222222,
-  });
+    .slide()
+    .reveal()
+    .transform({
+        position: [-3, 0, 0],
+    })
+    .grid({
+        axes: [2, 3],
+        width: 3,
+        color: 0x000000,
+        depth: 0.5,
+    })
+    .end()
+    .voxel({
+        data: [-1.5, 0, 0],
+        items: 1,
+        channels: 3,
+    })
+    .point({
+        size: 8,
+        color: 0x222222,
+    })
+    .voxel({
+        data: [
+            -.1, -2, 0,
+            -.1,  2, 0,
+            0.1,  2, 0,
+            0.1, -2, 0,
+        ],
+        items: 4,
+        channels: 3,
+    })
+    .face({
+        color: 0xcccccc,
+        width: 3,
+        shaded: true,
+        line: true,
+    })
+    .voxel({
+        data: [1.5, 0, 0],
+        items: 1,
+        channels: 3,
+    })
+    .point({
+        size: 8,
+        color: 0x222222,
+    });
 
-FOV = addTree(FOV);
-FOV = addVector(FOV.slide().reveal(), [2, 1, 0], [-0.5, 1, 0], {
-  color: C.treeLeavesColor,
-}).end();
-FOV = addVector(FOV.slide().reveal(), [-0.5, 1, 0], [-2, -0.5, 0], {
-  color: C.treeLeavesColor,
-}).end();
-FOV = addVector(FOV.slide().reveal(), [2, 1, 0], [-2, -0.5, 0], {
-  color: C.treeLeavesColor,
-}).end();
-FOV = addVector(FOV.slide().reveal(), [2, 1, 0], [-0.5, -0.5, 0], {
-  color: C.treeLeavesColor,
-}).end();
-FOV = addVector(FOV.slide().reveal(), [-0.5, -0.5, 0], [-2, -0.5, 0], {
-  color: C.treeLeavesColor,
-}).end();
+FOV = moveTreeOver(1,0,0,FOV);
+FOV
+.transform({
+    position: [-1, 0, 0],
+})
+FOV = addVector(FOV.slide().reveal(), [2, 1, 0], [-1,1,0],{
+    color: C.treeLeavesColor }).end();
+FOV = addVector(FOV.slide().reveal(), [-1, 1, 0], [-4,-1,0],{
+    color: C.treeLeavesColor }).end();
+FOV = addVector(FOV.slide().reveal(), [2, 1, 0], [-4,-1,0],{
+    color: C.treeLeavesColor }).end();
+FOV = addVector(FOV.slide().reveal(), [2, 1, 0], [-1,-1,0],{
+    color: C.treeLeavesColor }).end();
+FOV = addVector(FOV.slide().reveal(), [-1, -1, 0], [-4,-1,0],{
+    color: C.treeLeavesColor }).end();
+
+let notFocused = present
+    .slide()
+    .reveal()
+    .transform({
+        position: [-3, 0, 0],
+    })
+    .grid({
+        axes: [2, 3],
+        width: 2,
+        color: 0x000000,
+        depth: 0.5,
+    })
+    .end()
+    .voxel({
+        data: [-1.5, 0, 0],
+        items: 1,
+        channels: 3,
+    })
+    .point({
+        size: 8,
+        color: 0x222222,
+    })
+    .voxel({
+        data: [
+            -0.1, -2, 0,
+            -0.1,  2, 0,
+            0.1,  2, 0,
+            0.1, -2, 0,
+        ],
+        items: 4,
+        channels: 3,
+    })
+    .face({
+        color: 0xcccccc,
+        width: 3,
+        shaded: true,
+        line: true,
+    })
+    .voxel({
+        data: [1.5, 0, 0],
+        items: 1,
+        channels: 3,
+    })
+    .point({
+        size: 8,
+        color: 0x222222,
+    });
+
+notFocused = moveTreeOver(2,0,0,notFocused);
+notFocused = addVector(notFocused.slide().reveal(), [2, 1, 0], [-1,1,0],{
+    color: C.treeLeavesColor }).end();
+notFocused = addVector(notFocused.slide().reveal(), [-1, 1, 0], [-4,-1,0],{
+    color: C.treeLeavesColor }).end();
+notFocused = addVector(notFocused.slide().reveal(), [2, 1, 0], [-4,-1,0],{
+    color: C.treeLeavesColor }).end();
+notFocused = addVector(notFocused.slide().reveal(), [2, 1, 0], [-1,-1,0],{
+    color: C.treeLeavesColor }).end();
+notFocused = addVector(notFocused.slide().reveal(), [-1, -1, 0], [-4,-1,0],{
+    color: C.treeLeavesColor }).end();
+

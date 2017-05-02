@@ -129,3 +129,14 @@ export function coordsThroughPinhole(sensorCoord, fromXPos) {
   const multiple = (fromXPos - x) / x;
   return [[x + multiple * x, y + multiple * y, z + multiple * z], sensorCoord];
 }
+
+export function moveTreeOver(x = 0, y = 0, z = 0, slide) {
+    return slide
+        .transform({
+            position: [x, y, z],
+        })
+        .voxel(C.treeLeavesData)
+        .face({ color: C.treeLeavesColor })
+        .voxel(C.treeTrunkData)
+        .face({ color: C.treeTrunkColor });
+}
