@@ -397,7 +397,7 @@ let focused = present
   .grid({
     axes: [2, 3],
     width: 3,
-    color: 0x000000,
+    color: 0xcccccc,
     depth: 0.5,
   })
   .end()
@@ -454,10 +454,21 @@ let notFocused = present
   .transform({
     position: [-3, 0, 0],
   })
+    .step({
+        script: [
+            { position: [-3, 0, 0] },
+            { position: [-3, 0, 0] },
+            { position: [-3, 0, 0] },
+            { position: [-3, 0, 0] },
+            { position: [-3, 0, 0] },
+            { position: [-3, 0, 0] },
+            { position: [-2.3, 0, 0] }
+        ],
+    })
   .grid({
     axes: [2, 3],
     width: 2,
-    color: 0x000000,
+    color: 0xcccccc,
     depth: 0.5,
   })
   .end()
@@ -492,12 +503,12 @@ let notFocused = present
   });
 
 notFocused = moveTreeOver(2, 0, 0, notFocused);
-notFocused = addVector(notFocused.slide().reveal(), [4, 1, 0], [0, 1, 0], {
+notFocused = addVector(notFocused.slide(), [4, 1, 0], [0, 1, 0], {
   color: C.treeLeavesColor,
-}).end();
-notFocused = addVector(notFocused.slide().reveal(), [0, 1, 0], [-3, -1, 0], {
+});
+notFocused = addVector(notFocused.slide(), [0, 1, 0], [-3, -1, 0], {
   color: C.treeLeavesColor,
-}).end();
+});
 notFocused = addVector(
   notFocused.slide().reveal(),
   [4, 1, 0],
@@ -505,10 +516,10 @@ notFocused = addVector(
   {
     color: C.treeLeavesColor,
   },
-).end();
+);
 notFocused = addVector(notFocused.slide().reveal(), [4, 1, 0], [0, -0.6, 0], {
   color: C.treeLeavesColor,
-}).end();
+});
 notFocused = addVector(
   notFocused.slide().reveal(),
   [0, -0.6, 0],
@@ -516,7 +527,15 @@ notFocused = addVector(
   {
     color: C.treeLeavesColor,
   },
-).end();
+);
+notFocused = addVector(
+    notFocused.slide().reveal(),
+    [4, 1, 0],
+    [4, 1, 0],
+    {
+        color: C.treeLeavesColor,
+    },
+);
 
 let smallerAp = present
   .slide()
@@ -527,7 +546,7 @@ let smallerAp = present
   .grid({
     axes: [2, 3],
     width: 2,
-    color: 0x000000,
+    color: 0xcccccc,
     depth: 0.5,
   })
   .end()
@@ -592,7 +611,7 @@ let smallerAp2 = present
   .grid({
     axes: [2, 3],
     width: 2,
-    color: 0x000000,
+    color: 0xcccccc,
     depth: 0.5,
   })
   .end()
@@ -646,7 +665,9 @@ smallerAp2 = addVector(
     color: C.treeLeavesColor,
   },
 ).end();
-smallerAp2 = addVector(smallerAp2.slide().reveal(), [4, 1, 0], [0, -0.3, 0], {
+smallerAp2 = addVector(smallerAp2.slide().reveal(),
+  [4, 1, 0],
+  [0, -0.3, 0], {
   color: C.treeLeavesColor,
 }).end();
 smallerAp2 = addVector(
@@ -657,3 +678,12 @@ smallerAp2 = addVector(
     color: C.treeLeavesColor,
   },
 ).end();
+smallerAp2 = addVector(
+    smallerAp2.slide().reveal(),
+    [4, 1, 0],
+    [0, -1, 0],
+    {
+        color: C.treeLeavesColor,
+    },
+).end();
+mathbox.set({ scale: 720, focus: 4 });
