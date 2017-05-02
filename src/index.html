@@ -17,7 +17,11 @@
 
       section {
         max-width: 650px;
-        margin: 0 auto;
+        margin: 0 auto 5em;
+      }
+
+      h1 {
+        font-size: 2em;
       }
 
       h1,
@@ -31,6 +35,20 @@
         height: 100%;
       }
 
+      .title {
+        text-align: center;
+      }
+
+      .image {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .caption {
+        font-size: 0.8em;
+        margin-top: 0;
+      }
+
       .notes {
         height: 200px;
       }
@@ -38,11 +56,40 @@
   </head>
 
   <body>
-    <section>
+    <section class="title">
       <h1>Cameras, Explained</h1>
+      <div class="authors">
+        By
+        <a href="http://www.samlau.me/" rel="author" target="_blank">Sam Lau</a> and
+        <a href="http://jeronimomora.com/portfolio/" rel="author" target="_blank">Jeronimo Mora</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>What is a camera?</h2>
+
+      <p>
+      The camera has quickly become one of the most widely-used inventions of all time. In fact, despite being around for a couple hundred years there are more cameras used today than ever before.
+      </p>
+
+      <div class="image">
+        <img src="https://cloud.githubusercontent.com/assets/2468904/25643438/a4cd6908-2f54-11e7-81c6-78555d8a2df3.png" alt="iphone">
+        <p class="caption"><em>Behold: the camera you take wherever you go.</em></p>
+      </div>
+
+      <p>
+      But there is a lot more to a camera than just taking pressing a button to get a picture. Fancy DSLR cameras confront you with a huge array of options, most of them unintelligible to the average user. Although the terms sound confusing, they aren't too hard to grasp if you understand how cameras work. Let's explain how and why cameras are they way they are from first principles.
+      </p>
     </section>
 
     <section id="fov">
+      <h2>Zooming into the pinhole camera</h2>
+      <p>
+      In the following demo, we'll explain how the most basic camera works. Then, we'll learn about how cameras zoom in and out of a picture.
+      </p>
+
+      <p>You can drag your mouse in the scene to rotate it. Try it out!</p>
+
       <div class="demo" id="cameras-fov"></div>
 
       <div class="notes">
@@ -74,7 +121,7 @@
         Since each pixel gets all the rays from all parts of the tree, the final image will just be a single color. No good. (In reality, if you did this the image would be completely white since each pixel would be flooded with light from everywhere, not just the tree).
         </p>
         <p class="slide slide-10">
-        So how do we make an actual image on the sensor? We want each pixel on the sensor to receive light from a single spot on the image. One way of doing this is to cover up the sensor to only let light in through one spot. This is called a <a href="https://www.wikiwand.com/en/Pinhole_camera">pinhole camera</a>, and you can easily make one yourself using a shoebox if you'd like.
+        So how do we make an actual image on the sensor? We want each pixel on the sensor to receive light from a single spot on the image. One way of doing this is to cover up the sensor to only let light in through one spot. This is called a <a href="https://www.wikiwand.com/en/Pinhole_camera" target="_blank">pinhole camera</a>, and you can easily make one yourself using a shoebox if you'd like.
         </p>
         <p class="slide slide-11">
         Each ray of light needs to go through the pinhole to get to the sensor. Here's a ray from the tree leaves...
@@ -113,12 +160,15 @@
         If we just move the sensor forward, now the rays hit the sensor.
         </p>
         <p class="slide slide-23">
-        Now we have the entire tree on the sensor! This is how we adjust <em>field-of-view (FOV)</em>, or how much of the scene is in the camera image. We can increase the FOV by increasing the sensor size or by moving the sensor closer to the pinhole.
+        Now we have the entire tree on the sensor! This is how we adjust <em>zoom</em>, or how much of the scene is in the camera image. This is also known as field-of-view (FOV). We can increase the FOV by increasing the sensor size or by moving the sensor closer to the pinhole.
         </p>
       </div>
     </section>
 
     <section id="aperture">
+      <h2>Lens it up</h2>
+      <p>In this demo, we'll explain why cameras use lenses. Then, we'll explain why using a lens often causes some parts of the image to be in focus while other parts aren't.</p>
+
       <div class="demo" id="cameras-aperture"></div>
 
       <div class="notes">
