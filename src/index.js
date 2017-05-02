@@ -15,44 +15,66 @@ import {
   moveTreeOver,
 } from './slide_utils';
 
-const mathbox = window.mathBox({
+const mathboxFov = window.mathBox({
   plugins: ['core', 'cursor', 'controls'],
   controls: { klass: OrbitControlsInit(THREE) },
-  element: document.querySelector('#cameras'),
+  element: document.querySelector('#cameras-fov'),
 });
 
-const three = mathbox.three;
-three.renderer.setClearColor(0xffffff, 1.0);
+const mathboxAperture = window.mathBox({
+  plugins: ['core', 'cursor', 'controls'],
+  controls: { klass: OrbitControlsInit(THREE) },
+  element: document.querySelector('#cameras-aperture'),
+});
+
+mathboxFov.three.renderer.setClearColor(0xffffff, 1.0);
+mathboxAperture.three.renderer.setClearColor(0xffffff, 1.0);
 
 // Set mathbox units and place camera
-mathbox.set({ scale: 720, focus: 3 });
+mathboxFov.set({ scale: 720, focus: 3 });
+mathboxAperture.set({ scale: 720, focus: 4 });
 
 if (window == top) {
   window.onkeydown = e => {
+    // TODO(sam): Only allow one presentation to move forward
     switch (e.keyCode) {
       case 37:
       case 38:
-        present.set('index', present.get('index') - 1);
-        console.log('Slide: ', present.get('index'));
+        fov.set('index', fov.get('index') - 1);
+        console.log('Slide: ', fov.get('index'));
+        aperture.set('index', aperture.get('index') - 1);
+        console.log('Slide: ', aperture.get('index'));
         break;
       case 39:
       case 40:
-        present.set('index', present.get('index') + 1);
-        console.log('Slide: ', present.get('index'));
+        fov.set('index', fov.get('index') + 1);
+        console.log('Slide: ', fov.get('index'));
+        aperture.set('index', aperture.get('index') + 1);
+        console.log('Slide: ', aperture.get('index'));
         break;
     }
   };
 }
 
 // Create cartesian view
-var view = mathbox.cartesian({
+var viewFov = mathboxFov.cartesian({
+  range: [[-1, 1], [-1, 1], [-1, 1]],
+  scale: [1, 1, 1],
+});
+var viewAperture = mathboxAperture.cartesian({
   range: [[-1, 1], [-1, 1], [-1, 1]],
   scale: [1, 1, 1],
 });
 
-const present = view.present({ index: 4 });
+const fov = viewFov.present({ index: 1 });
+const aperture = viewAperture.present({ index: 1 });
 
-const camera = view.camera({
+viewFov.camera({
+  proxy: true,
+  position: [0, 0, 3],
+  lookAt: [0, 0, 0],
+});
+viewAperture.camera({
   proxy: true,
   position: [0, 0, 3],
   lookAt: [0, 0, 0],
@@ -61,7 +83,7 @@ const camera = view.camera({
 /*
  * Sensor intro
  */
-let sensor = present
+let sensor = fov
   .slide()
   .reveal()
   .voxel({
@@ -97,7 +119,7 @@ sensor = addVector(sensor.slide().reveal(), [0.6, -0.7, 0.7], [0.3, 0.1, 0], {
 }).end();
 
 // TODO: Draw simple picture on grid
-let simpleImage = present.slide().reveal().grid({
+let simpleImage = fov.slide().reveal().grid({
   axes: [1, 2],
   width: 2,
   color: 0xcccccc,
@@ -110,7 +132,7 @@ let simpleImage = present.slide().reveal().grid({
  * Blurred sensor image
  */
 // TODO: Draw blurred image on grid
-let blurred = present
+let blurred = fov
   .slide()
   .reveal()
   .transform({
@@ -132,7 +154,7 @@ blurred = addVectors(blurred, [
   [[1.25, -1, 0], toSensorCoords(10, 10)],
 ], { color: C.treeTrunkColor }, true);
 
-let blurredImage = present
+let blurredImage = fov
   .slide()
   .reveal()
   .grid({
@@ -156,7 +178,7 @@ let blurredImage = present
 /**
  * Pinhole camera and vectors
  */
-let pinholeScene = present
+let pinholeScene = fov
   .slide()
   .reveal()
   .transform({
@@ -199,7 +221,7 @@ pinholeScene = addVectors(
   true,
 );
 
-let treeImage = present
+let treeImage = fov
   .slide()
   .reveal()
   .grid({
@@ -231,7 +253,7 @@ let treeImage = present
   })
   .face({ color: C.treeTrunkColor });
 
-let imageIsCutOff = present
+let imageIsCutOff = fov
   .slide()
   .reveal()
   .transform({
@@ -268,7 +290,7 @@ imageIsCutOff = addVectors(
   true,
 );
 
-let sensorSizeIncrease = present
+let sensorSizeIncrease = fov
   .slide()
   .reveal()
   .transform({
@@ -309,7 +331,7 @@ sensorSizeIncrease = addVectors(
   false,
 );
 
-let sensorCloser = present
+let sensorCloser = fov
   .slide()
   .reveal()
   .transform({
@@ -350,7 +372,7 @@ sensorCloser = addVector(
   { color: C.treeTrunkColor },
 );
 
-let sensorCloserImage = present
+let sensorCloserImage = fov
   .slide()
   .reveal()
   .grid({
@@ -388,7 +410,7 @@ let sensorCloserImage = present
  * Begin depth of field slides
  */
 
-let focused = present
+let focused = aperture
   .slide()
   .reveal()
   .transform({
@@ -448,7 +470,7 @@ focused = addVector(focused.slide().reveal(), [0, -1, 0], [-3, -1, 0], {
   color: C.treeLeavesColor,
 }).end();
 
-let notFocused = present
+let notFocused = aperture
   .slide()
   .reveal()
   .transform({
@@ -537,7 +559,7 @@ notFocused = addVector(
     },
 );
 
-let smallerAp = present
+let smallerAp = aperture
   .slide()
   .reveal()
   .transform({
@@ -602,7 +624,7 @@ smallerAp = addVector(
   },
 ).end();
 
-let smallerAp2 = present
+let smallerAp2 = aperture
   .slide()
   .reveal()
   .transform({
@@ -686,4 +708,3 @@ smallerAp2 = addVector(
         color: C.treeLeavesColor,
     },
 ).end();
-mathbox.set({ scale: 720, focus: 4 });
