@@ -136,5 +136,6 @@ export function moveTreeOver(x = 0, y = 0, z = 0, slide) {
         .voxel(C.treeLeavesData)
         .face({ color: C.treeLeavesColor })
         .voxel(C.treeTrunkData)
-        .face({ color: C.treeTrunkColor });
+        .face({ color: C.treeTrunkColor })
+        .end();
 }
