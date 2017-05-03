@@ -9,10 +9,16 @@ class Controller {
   constructor($el, slidesView, numSlides, initialIndex = 1) {
     this.$el = $el;
     this.$notes = $el.find('.notes');
+    this.$number = $el.find('.slide-num');
 
     this.slidesView = slidesView;
     this.numSlides = numSlides;
     this.index = initialIndex;
+
+    const $left = $el.find('.controls-left');
+    const $right = $el.find('.controls-right');
+    $left.click(() => this.prev());
+    $right.click(() => this.next());
 
     this._updateSlide()
   }
@@ -22,6 +28,8 @@ class Controller {
 
     this.$notes.find('.slide').fadeOut(0);
     this.$notes.find(`.slide-${this.index}`).fadeIn(200);
+
+    this.$number.text(`${this.index}/${this.numSlides}`);
   }
 
   next() {
