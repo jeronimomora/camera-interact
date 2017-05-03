@@ -72,7 +72,7 @@ const fov = viewFov.present({ index: 1 });
 const controllerFov = new Controller($('#fov'), fov, 23);
 
 const aperture = viewAperture.present({ index: 1 });
-const controllerAp = new Controller($('#aperture'), aperture, 23);
+const controllerAp = new Controller($('#aperture'), aperture, 13);
 
 viewFov.camera({
   proxy: true,

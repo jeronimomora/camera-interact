@@ -17,7 +17,7 @@
 
       section {
         max-width: 650px;
-        margin: 0 auto 5em;
+        margin: 0 auto 3em;
       }
 
       h1 {
@@ -196,15 +196,72 @@
 
       <div class="slide-controls">
         <div class="controls-left">❮</div>
-        <div class="slide-num">1/23</div>
+        <div class="slide-num">1/13</div>
         <div class="controls-right">❯</div>
 
         <div class="notes">
           <p class="slide slide-1">
-            Hello world
+            Let's begin by covering how lenses work. Depending on the type of lens, it will bend light in a certain way.
+            We're going to ray trace some light from the top of the tree using this converging lens (converging because light
+            rays come to a certain point instead of diverging). This will help us see where the image of tree will form.
           </p>
+          <p class="slide slide-2">
+            First off, we draw a ray parallel to the horizontal axis going from the top of the tree to the lens.
+          </p>
+          <p class="slide slide-3">
+              This ray will be bent (refracted) and go through the black dot on the left and continue on to the sensor. This black
+              dot is called the "focal point". It's where rays that travel parallel to the horizontal axis will get refracted to.
+          </p>
+          <p class="slide slide-4">
+              The next ray we draw is through the center of the lens. This one just goes straight through.
+          </p>
+          <p class="slide slide-5">
+              The last ray we draw goes through the focal point on the right...
+          </p>
+          <p class="slide slide-6">
+              ...and because it did so, gets refracted parallel to the horizontal axis. You'll notice that all the rays
+            converged to the same point and the sensor is at that location. In this case, the tree would be perfectly in focus!
+          </p>
+          <p class="slide slide-7">
+            That's not always going to be the case though. If the tree is further than where it was previously,
+            the rays that hit the sensor aren't all converged to the same location on the sensor. This gives rise to what we call
+            "depth of field". Depending on the setup, only certain depths in the scene will be in focus.
+          </p>
+          <p class="slide slide-8">
+            If we want this tree to be in focus, we simply move the sensor to where the rays have converged.
+          </p>
+          <p class="slide slide-9">
+            The size of the blur caused by the rays not converging is called the "Circle of Confusion". This is again caused by
+            rays not being converged (thus causing confusion as to what the object really looks like).
+            The less focused the rays are, the bigger the circle of confusion. So how do we lessen depth of field effects?
+          </p>
+          <p class="slide slide-10">
+           Let's use a smaller lens. This will decrease the "Aperture size". It's the diameter of the hole the light is allowed
+            to go through. We can see that the spot size on the sensor got smaller.
+          </p>
+          <p class="slide slide-11">
+            If we decrease the lens size even further, we can see that the rays converge even more!  Because light has a smaller area to enter,
+            the rays are more likely to arrive at the same point.
+          </p>
+          <p class="slide slide-12">
+            To illustrate this, here's a ray that given a bigger lens could have gone on to hit the sensor.
+            It doesn't do that because it misses the aperture. What happens when we go even smaller?
+          </p>
+          <p class="slide slide-13">
+            Well, if we go out to the size limit, we'll end up back with our friend: the pinhole camera. With pinhole cameras,
+            everything in the scene is in focus and has no depth of field effects.
+          </p>
+
+
         </div>
       </div>
+
+      <p>
+        Now we know how a camera works! Here's just a small demo to show in a very basic way how the field of view, f-Stop (a bigger f-Stop is a smaller aperture!),
+        and shutter speed (time during which the shutter stays open) affect how a picture
+        would come out. Left click and drag rotates the top view, right click and drag pans the scene, and the sliders adjust parameters.
+        <a href="../full_camera_demo.html" target="_blank">Click here to give it a go!</a>
+      </p>
     </section>
 
     <script src="index_bundle.js"></script>
