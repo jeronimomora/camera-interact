@@ -68,7 +68,7 @@ class Controls {
 
 const controls = new Controls();
 const gui = new dat.GUI();
-gui.add(controls, 'fov', 5, 200);
+gui.add(controls, 'fov', 5, 180);
 gui.add(controls, 'shutterSpeed', 1, 500);
 gui.add(controls, 'fStop', 1, 22);
 
@@ -81,7 +81,7 @@ function setFov(fov) {
 
 function setIntensity(shutterSpeed, fStop) {
     staticSceneObjs.light.intensity = ((shutterSpeed/17) + (10/fStop))*(5/2);
-    staticSceneObjs.hemiLight.intensity = ((shutterSpeed/17) + (10/fStop))*(1.7/2);
+    staticSceneObjs.hemiLight.intensity = ((shutterSpeed/35) + (10/fStop))*(1.7/2);
     renderingCamera.updateProjectionMatrix();
 }
 
