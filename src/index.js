@@ -129,7 +129,29 @@ let simpleImage = fov.slide().reveal().grid({
   width: 2,
   color: 0xcccccc,
   depth: 0.5,
-}).slide().reveal();
+}).slide().reveal()
+  .voxel({
+    data: [
+      toPixelCoords(20, 5),
+      toPixelCoords(10, 5),
+      toPixelCoords(10, 15),
+      toPixelCoords(20, 15),
+    ],
+    items: 4,
+    channels: 3,
+  })
+  .face({ color: C.treeLeavesColor })
+  .voxel({
+    data: [
+      toPixelCoords(2, 8),
+      toPixelCoords(2, 12),
+      toPixelCoords(10, 12),
+      toPixelCoords(10, 8),
+    ],
+    items: 4,
+    channels: 3,
+  })
+  .face({ color: C.treeTrunkColor });;
 
 // simpleImage = addImage(simpleImage, C.sampleImageData);
 
