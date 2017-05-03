@@ -40,6 +40,9 @@ if (window == top) {
   window.onkeydown = e => {
     // TODO(sam): Only allow one presentation to move forward
     switch (e.keyCode) {
+      case 32:
+        controllerFov.reset();
+        controllerAp.reset();
       case 37:
       case 38:
         controllerFov.prev();

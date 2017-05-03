@@ -43,6 +43,11 @@ class Controller {
     this._updateSlide();
     console.log('Slide:', this.index);
   }
+
+  reset() {
+    this.index = MIN_SLIDE_NUM
+    this._updateSlide();
+  }
 }
 
 export default Controller;
