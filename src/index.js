@@ -540,6 +540,30 @@ notFocused = addVector(notFocused.slide().reveal(), [4, 1, 0], [4, 1, 0], {
     color: C.treeLeavesColor,
 }).end();
 
+
+let COC = aperture
+    .slide()
+    .reveal()
+    .transform({
+        position: [-1, 0, 0],
+    })
+    .grid({
+        axes: [2, 3],
+        width: 2,
+        color: 0xcccccc,
+        depth: 0.5,
+    })
+    .end()
+COC = addVectors(COC,
+    [
+        [[0, 0, 0],    [-1, -.6, 0]],
+        [[0, 0, 0],    [-1, -.85, 0]],
+        [[0, 0, 0],    [-1, -0.75, 0]],
+    ],
+    {
+        color: C.treeLeavesColor,
+    }, false);
+
 let smallerAp = aperture
   .slide()
   .reveal()
@@ -588,7 +612,7 @@ smallerAp = moveTreeOver(2, 0, 0, smallerAp);
 smallerAp = addVectors(smallerAp,
     [
         [[4, 1, 0],    [0, 0.6, 0]],
-        [[0, 0.6, 0],  [-3, -0.6, 0]],
+        [[0, 0.6, 0],  [-3, -0.7, 0]],
         [[4, 1, 0],    [-3, -0.75, 0]],
         [[4, 1, 0],    [0, -0.6, 0]],
         [[0, -0.6, 0], [-3, -0.6, 0]]
@@ -662,3 +686,33 @@ smallerAp2 = addVector(
         color: C.treeLeavesColor,
     },
 ).end();
+
+let sensorCloserAp = aperture
+    .slide()
+    .reveal()
+    .transform({
+        position: [C.sensor.xPos + 1, 0, 0],
+    })
+    .grid({
+        axes: [2, 3],
+        width: 2,
+        color: 0xcccccc,
+        depth: 0.5,
+    })
+    .end()
+    .voxel({
+        data: [0, 0, 0],
+        items: 1,
+        channels: 3,
+    })
+    .point({
+        size: 8,
+        color: 0x222222,
+    });
+
+sensorCloserAp = addTree(sensorCloserAp);
+sensorCloserAp = addVector(
+    sensorCloserAp,
+    ...coordsThroughPinhole(toSensorCoords(-10, 10), 1),
+    { color: C.treeLeavesColor },
+);
