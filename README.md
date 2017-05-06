@@ -1,7 +1,9 @@
 Camera Interact
 =====================
 
-This little web demo explains the concept of
+This little web demo explains how cameras work using animations. We explain
+how cameras record images, why cameras need an aperture, why cameras have
+lenses, and how the field of view and depth of field is adjusted in a camera.
 
 ![recording](img/demo.gif)
 
